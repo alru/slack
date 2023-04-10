@@ -72,9 +72,9 @@ In this case, native methods are wrapped to make it easier for you to get some p
 ## BlockKit
 
 Ready-made functions for creating BlockKit parts are available as:
-slack.blocks
-slack.elements
-slack.objects
+* slack.blocks
+* slack.elements
+* slack.objects
 ## Views
 
 You can create View instances using slack.home() or slack.modal().
