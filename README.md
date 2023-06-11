@@ -82,27 +82,36 @@ You can create View instances using slack.home() or slack.modal().
 You can either provide static blocks as a blocks property or use a composer function to render blocks dynamically.
 
 ```javascript
-const staticView = slack.modal({
-  title: 'My Modal',
-  blocks: [
-    slack.blocks.section({
-      text: 'Hello, World!',
-    }),
-  ],
-});
-await staticView.push(webClient);
+function myHandler(app) {
+  app.action('open-modal', async ({webClient, slackId, trigger_id}) => {
 
-const dynamicView = slack.modal({
-  title: 'My Modal',
-  composer: ({slackId}) => {
-    return [
-      slack.blocks.section({
-        text: `Hello, <@${slackId}>!`,
-      }),
-    ];
-  }
-})
-await dynamicView.push(webClient);
+    // Static View Example
+    const staticView = slack.modal({
+      title: 'My Modal',
+      blocks: [
+        slack.blocks.section({
+          text: 'Hello, World!',
+        }),
+      ],
+    });
+    await staticView.open(webClient, {trigger_id});
+    
+    // Dynamic View Example
+    const dynamicView = slack.modal({
+      title: 'My Modal',
+      composer: ({slackId, message}) => {
+        return [
+          slack.blocks.section({
+            text: `Hello, <@${slackId}>!\n${message}`,
+          }),
+        ];
+      }
+    });
+    await dynamicView.compose({slackId, message: 'Have a nice day!'});
+    await dynamicView.open(webClient, {trigger_id});
+    
+  });
+}
 ```
 ## Contributing
 
