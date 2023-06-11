@@ -5,29 +5,33 @@ This is a wrapper for the Slack Bolt SDK for Node.js, primarily designed to make
 
 **Create markup faster using ready-made functions**
 ```javascript
+const {header, divider} = slack.blocks;
 const blocks = [
-    slack.blocks.header({text: 'Hello world'}),
-    slack.blocks.divider()
+    header({text: 'Hello world'}),
+    divider()
 ]
 ```
 
 ***Simplify your work with Views***
 ```javascript
-// Define new view with composer function
+// Define a view with a composer function
+const {section} = slack.blocks;
 const view = slack.home({
  composer: (slackId) => {
     return [
-        slack.blocks.section({
+        section({
             text: `Hello, <@${slackId}>`
         })
-    ]
+    ];
  }
 });
 // Publish composed view
 view.publish(webClient, slackId);
 ```
+**...and speed-up production with useful utils**
 
-As this is just a wrapper, you need to be familiar with the Slack API and Bolt SDK.
+_**Note:**
+As this is just a wrapper, you need to be familiar with the Slack API and Bolt SDK._
 ## Installation
 ```bash
   npm install @alru/slack
@@ -99,7 +103,8 @@ function myHandler(app) {
     // Dynamic View Example
     const dynamicView = slack.modal({
       title: 'My Modal',
-      composer: ({slackId, message}) => {
+      // Yes, composer can be async if you want
+      composer: async ({slackId, message}) => {
         return [
           slack.blocks.section({
             text: `Hello, <@${slackId}>!\n${message}`,
@@ -113,6 +118,28 @@ function myHandler(app) {
   });
 }
 ```
+## Useful utils
+**Format date (to user local timezone)**
+```javascript
+const {formatDate} = slack.utils;
+const date = formatDate(Date.now(), { token_string: '{date_long}' });
+const time = formatDate(Date.now(), { token_string: '{time}' });
+```
+**Parse payload values**
+```javascript
+const {parseView, parseAction} = slack.utils;
+
+// Parse view submission values
+app.view('some-view-submit', async ({view}) => {
+  const data = parseView(view, true);
+})
+
+// Parse action value
+app.action('some-action', async ({action}) => {
+  const value = parseAction(action);
+});
+```
+
 ## Contributing
 
 Contributions are always welcome!
