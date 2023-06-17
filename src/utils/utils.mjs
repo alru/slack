@@ -62,6 +62,7 @@ export function parseAction(action) {
   if (action.selected_option) return action.selected_option.value;
   if (action.selected_date) return action.selected_date;
   if (action.selected_time) return action.selected_time;
+  if (action.selected_date_time) return action.selected_date_time;
   if (action.selected_conversation) return action.selected_conversation;
   if (action.selected_users) return action.selected_users;
   if (action.selected_user) return action.selected_user;
