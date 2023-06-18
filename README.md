@@ -3,7 +3,7 @@
 
 This is a wrapper for the Slack Bolt SDK for Node.js, primarily designed to make it easier to work with BlockKit and Views:
 
-**Create markup faster using ready-made functions**
+**Create BlockKit markup faster using ready-made functions**
 ```javascript
 const {header, divider} = slack.blocks;
 const blocks = [
@@ -25,8 +25,10 @@ const view = slack.home({
     ];
  }
 });
-// Publish composed view
-view.publish(webClient, slackId);
+
+// Compose view and publish it
+await view.compose(slackId);
+await view.publish(webClient, slackId);
 ```
 **...and speed-up production with useful utils**
 
