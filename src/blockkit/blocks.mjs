@@ -18,14 +18,14 @@ export function actions({elements, block_id}) {
 /**
  * Context block
  * @param {object} params
- * @param {array} params.elements - An array of image elements and text objects.
+ * @param {array} params.elements - An array of image elements and text objects (strings will be automatically converted into text objects).
  * @param {string} [params.block_id] - A string acting as a unique identifier for a block. You can use this block_id when you receive an interaction payload to identify the source of the action. If not specified, one will be generated.
  * @returns {object} - A context block object.
  */
 export function context({elements, block_id}) {
   return {
     type: 'context',
-    elements: elements,
+    elements: elements.map(el => typeof el === 'string' ? text_object(el, true) : el),
     ...(block_id && {block_id: block_id})
   };
 }
