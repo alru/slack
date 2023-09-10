@@ -1,5 +1,6 @@
 
 # @alru/slack
+👉 [**Tutorial video**](https://youtu.be/gctc0cNHpKI)
 
 This is a wrapper for the Slack Bolt SDK for Node.js, primarily designed to make it easier to work with BlockKit and Views:
 
