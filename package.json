@@ -1,13 +1,14 @@
 {
   "name": "@alru/slack",
-  "version": "1.0.31",
+  "version": "1.0.32",
   "description": "A wrapper for the Slack Bolt SDK, making it easier to manage and populate views.",
   "main": "src/slack.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
-    "node": ">=16.14.0"
+    "node": ">=18",
+    "npm": ">=8.6.0"
   },
   "keywords": ["slack", "bolt", "bot"],
   "author": "Aleks Rublev",
@@ -21,6 +22,6 @@
   },
   "homepage": "https://github.com/alru/slack#readme",
   "dependencies": {
-    "@slack/bolt": "^3.13.0"
+    "@slack/bolt": "4.7.0"
   }
 }

@@ -12,10 +12,14 @@ import bolt from '@slack/bolt';
  * @param {Boolean} schema.options.socketMode
  * @param {String} schema.options.appToken
  * @param {Number} schema.options.port
+ * @param {Array} schema.listeners - array of listener functions
+ * @param {Array} schema.handlers - array of handler functions
+ * @param {Function} schema.onStart - function to run on app start
  */
 export default class App {
   constructor(schema = {}) {
     this.app = new bolt.App(schema.options);
+    this.client = this.app.client;
 
     // Listeners
     if (schema.listeners) {
@@ -27,7 +31,10 @@ export default class App {
       schema.handlers.forEach(handler => handler(this));
     }
 
-    this.app.start();
+    this.app.start().then(() => {
+      this.app.logger.info('Connected to Slack');
+      if (schema.onStart) schema.onStart(this);
+    });
   }
 
   /**

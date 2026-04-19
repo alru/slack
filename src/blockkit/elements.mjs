@@ -146,7 +146,29 @@ export function multi_static_select({action_id = 'multi_static_select', options,
   }
 }
 
-//todo: external data source
+/**
+ * Multi-select menu element with external data source
+ * Requires configuration of an Options Load URL in the app settings
+ * @param {object} params
+ * @param {string} [params.action_id] - action_id
+ * @param {number} [params.min_query_length] - minimum typed characters before typeahead request is sent, default 3
+ * @param {array} [params.initial_options] - array of initial option objects in a form of {text, value} or option objects
+ * @param {object} [params.confirm] - confirmation object
+ * @param {number} [params.max_selected_items] - maximum number of items that can be selected
+ * @param {string} [params.placeholder] - placeholder text string, will be converted to text object
+ * @returns {object} - multi external select object
+ */
+export function multi_external_select({action_id = 'multi_external_select', min_query_length, initial_options, confirm, max_selected_items, placeholder}) {
+  return {
+    type: 'multi_external_select',
+    action_id: action_id,
+    ...(min_query_length !== undefined && {min_query_length}),
+    ...(initial_options && {initial_options: prepareOptions(initial_options)}),
+    ...(confirm && {confirm}),
+    ...(max_selected_items && {max_selected_items}),
+    ...(placeholder && {placeholder: text_object(placeholder)}),
+  }
+}
 
 /**
  * Multi Users Select element
@@ -342,7 +364,29 @@ export function static_select({action_id = 'static_select', options, option_grou
 
 }
 
-//todo: external data source select
+/**
+ * Select menu element with external data source
+ * Requires configuration of an Options Load URL in the app settings
+ * @param {object} params
+ * @param {string} [params.action_id] - action_id
+ * @param {number} [params.min_query_length] - minimum typed characters before typeahead request is sent, default 3
+ * @param {object} [params.initial_option] - initial option object in a form of {text, value} or option object
+ * @param {object} [params.confirm] - confirmation object
+ * @param {boolean} [params.focus_on_load] - focus on load
+ * @param {string} [params.placeholder] - placeholder text string, will be converted to text object
+ * @returns {object} - external select object
+ */
+export function external_select({action_id = 'external_select', min_query_length, initial_option, confirm, focus_on_load, placeholder}) {
+  return {
+    type: 'external_select',
+    action_id: action_id,
+    ...(min_query_length !== undefined && {min_query_length}),
+    ...(initial_option && {initial_option: prepareOption(initial_option)}),
+    ...(confirm && {confirm}),
+    ...(focus_on_load && {focus_on_load}),
+    ...(placeholder && {placeholder: text_object(placeholder)}),
+  }
+}
 
 /**
  * Users Select element
