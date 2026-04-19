@@ -18,7 +18,7 @@ export function button({text, action_id = 'button', url, value, style, confirm})
     text: text_object(text),
     action_id: action_id,
     ...(url && {url}),
-    ...(value && {value: value.toString()}),
+    ...(value !== undefined && {value: value.toString()}),
     ...(style && {style}),
     ...(confirm && {confirm}),
   }
@@ -103,7 +103,7 @@ export function email_text_input({action_id = 'email_text_input', initial_value,
     ...(initial_value && {initial_value: initial_value.toString()}),
     ...(focus_on_load && {focus_on_load}),
     ...(placeholder && {placeholder: text_object(placeholder)}),
-    ...(triggerOnEnter || triggerOnType && {dispatch_action_config: {trigger_actions_on: [triggerOnEnter && 'on_enter_pressed', triggerOnType && 'on_character_entered'].filter(Boolean)}}),
+    ...((triggerOnEnter || triggerOnType) && {dispatch_action_config: {trigger_actions_on: [triggerOnEnter && 'on_enter_pressed', triggerOnType && 'on_character_entered'].filter(Boolean)}}),
   }
 }
 
@@ -262,13 +262,12 @@ export function number_input({action_id = 'number_input', is_decimal_allowed = f
     type: 'number_input',
     action_id: action_id,
     is_decimal_allowed: is_decimal_allowed,
-    ...(initial_value && {initial_value: initial_value.toString()}),
-    ...(min_value && {min_value: min_value.toString()}),
-    ...(max_value && {max_value: max_value.toString()}),
+    ...(initial_value !== undefined && {initial_value: initial_value.toString()}),
+    ...(min_value !== undefined && {min_value: min_value.toString()}),
+    ...(max_value !== undefined && {max_value: max_value.toString()}),
     ...(focus_on_load && {focus_on_load}),
     ...(placeholder && {placeholder: text_object(placeholder)}),
-    ...(triggerOnEnter && {dispatch_action_config: {trigger_actions_on: ['on_enter_pressed']}}),
-    ...(triggerOnType && {dispatch_action_config: {trigger_actions_on: ['on_character_entered']}}),
+    ...((triggerOnEnter || triggerOnType) && {dispatch_action_config: {trigger_actions_on: [triggerOnEnter && 'on_enter_pressed', triggerOnType && 'on_character_entered'].filter(Boolean)}}),
   }
 }
 
@@ -309,11 +308,11 @@ export function text_input({action_id = 'text_input', initial_value, multiline, 
     action_id: action_id,
     ...(initial_value && {initial_value: initial_value.toString()}),
     ...(multiline && {multiline}),
-    ...(min_length && {min_length}),
+    ...(min_length !== undefined && {min_length}),
     ...(max_length && {max_length}),
     ...(focus_on_load && {focus_on_load}),
     ...(placeholder && {placeholder: text_object(placeholder)}),
-    ...(triggerOnEnter || triggerOnType && {dispatch_action_config: {trigger_actions_on: [triggerOnEnter && 'on_enter_pressed', triggerOnType && 'on_character_entered'].filter(Boolean)}}),
+    ...((triggerOnEnter || triggerOnType) && {dispatch_action_config: {trigger_actions_on: [triggerOnEnter && 'on_enter_pressed', triggerOnType && 'on_character_entered'].filter(Boolean)}}),
   }
 }
 
@@ -494,13 +493,12 @@ export function timepicker({action_id = 'timepicker', initial_time, confirm, foc
  */
 export function url_text_input({action_id = 'url_text_input', initial_value, focus_on_load, placeholder, triggerOnEnter, triggerOnType}) {
   return {
-    type: 'plain_text_input',
+    type: 'url_text_input',
     action_id: action_id,
-    ...(initial_value && {initial_value}),
+    ...(initial_value && {initial_value: initial_value.toString()}),
     ...(focus_on_load && {focus_on_load}),
     ...(placeholder && {placeholder: text_object(placeholder)}),
-    ...(triggerOnEnter && {dispatch_action_config: {trigger_actions_on: ['on_enter_pressed']}}),
-    ...(triggerOnType && {dispatch_action_config: {trigger_actions_on: ['on_character_entered']}}),
+    ...((triggerOnEnter || triggerOnType) && {dispatch_action_config: {trigger_actions_on: [triggerOnEnter && 'on_enter_pressed', triggerOnType && 'on_character_entered'].filter(Boolean)}}),
   }
 }
 
