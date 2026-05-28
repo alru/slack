@@ -1,6 +1,23 @@
 import {text_object} from './objects.mjs';
 
 /**
+ * Alert block
+ * @param {object} params
+ * @param {string} params.text - The alert message (string), it will be converted to a mrkdwn text object automatically.
+ * @param {string} [params.level] - The severity level: "default", "info", "warning", "error", or "success".
+ * @param {string} [params.block_id] - A string acting as a unique identifier for a block. If not specified, one will be generated.
+ * @returns {object} - An alert block object.
+ */
+export function alert({text, level, block_id}) {
+  return {
+    type: 'alert',
+    text: text_object(text, true),
+    ...(level && {level}),
+    ...(block_id && {block_id: block_id})
+  };
+}
+
+/**
  * Actions block
  * @param {object} params
  * @param {array} params.elements - An array of interactive element objects - buttons, select menus, overflow menus, or date pickers.
