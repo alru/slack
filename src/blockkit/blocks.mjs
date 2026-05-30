@@ -64,13 +64,15 @@ export function divider({block_id} = {}) {
  * Header block
  * @param {object} params
  * @param {string} params.text - The text for the block (string), it will be converted to a text object automatically.
+ * @param {number} [params.level] - The heading level. Values 1-4 correspond to H1-H4 heading levels, respectively.
  * @param {string} [params.block_id] - A string acting as a unique identifier for a block. You can use this block_id when you receive an interaction payload to identify the source of the action. If not specified, one will be generated.
  * @returns {object} - A header block object.
  */
-export function header({text, block_id}) {
+export function header({text, level, block_id}) {
   return {
     type: 'header',
     text: text_object(text),
+    ...(level && {level}),
     ...(block_id && {block_id: block_id})
   };
 }
